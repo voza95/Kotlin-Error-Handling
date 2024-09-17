@@ -19,22 +19,14 @@ fun main(args: Array<String>) {
  * This `error` will include like stack overflow error, and out of memory error.
  ***/
 fun noErrorHandling(args: Array<String>) {
-    val input = args[0]
-    try {
-        println("%.${2}f".format(input.toDouble()))
+    val input = try {
+        "%.${2}f".format(args[0].toDouble())
     } catch (e: ArrayIndexOutOfBoundsException) {
-        println("Please provide at least one number.")
-        println("The original cause was ${e.cause}")
-        println("The original message was ${e.message}")
+        "Please provide at least one number."
     } catch (e: NumberFormatException) {
-        println("'$input' is not a valid number")
-        println("The original cause was ${e.cause}")
-        println("The original message was ${e.message}")
+        "'${args[0]}' is not a valid number"
     } catch (e: Exception) {
-        println("The original cause was ${e.cause}")
-        println("The original message was ${e.message}")
-    } finally {
-        println("Finally block")
+        "The original message was ${e.message}"
     }
-    println("Bye!!!")
+    println(input)
 }
