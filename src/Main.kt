@@ -1,7 +1,7 @@
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    noErrorHandling(args)
+    println(noErrorHandling(args))
 }
 
 /***
@@ -18,15 +18,12 @@ fun main(args: Array<String>) {
  * we'll see that if you catch throw, you catch the entire universe of exceptions as it is the parent class of `exception` and `error`.
  * This `error` will include like stack overflow error, and out of memory error.
  ***/
-fun noErrorHandling(args: Array<String>) {
-    val input = try {
-        "%.${2}f".format(args[0].toDouble())
-    } catch (e: ArrayIndexOutOfBoundsException) {
-        "Please provide at least one number."
-    } catch (e: NumberFormatException) {
-        "'${args[0]}' is not a valid number"
-    } catch (e: Exception) {
-        "The original message was ${e.message}"
-    }
-    println(input)
+fun noErrorHandling(args: Array<String>) = try {
+    "%.${2}f".format(args[0].toDouble())
+} catch (e: ArrayIndexOutOfBoundsException) {
+    "Please provide at least one number."
+} catch (e: NumberFormatException) {
+    "'${args[0]}' is not a valid number"
+} catch (e: Exception) {
+    "The original message was ${e.message}"
 }
