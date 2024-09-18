@@ -4,7 +4,7 @@ fun main(args: Array<String>) {
     println(noErrorHandling(args))
 }
 
-/***
+/**
  * All allowed cases of execution handling
  *
  * 1. try {} catch () {}
