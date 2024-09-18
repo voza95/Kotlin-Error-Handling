@@ -1,7 +1,26 @@
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    println(noErrorHandling(args))
+//    println(noErrorHandling(args))
+
+    val content = readTextFile("src/resources/stocks.csv")
+    if (content.isEmpty()) return
+    val yield = content
+        .trim()
+        .lines()
+        .drop(1)
+        .map { it.split(",") }.associate { columns ->
+            val stock = columns[0]
+            val lastPrice = columns[1].toDouble()
+            val dividend = columns[2].toDouble()
+
+            val yield = (dividend / lastPrice) * 100
+            stock to "%.2f".format(yield)
+        }
+    println(yield)
 }
 
 /**
@@ -26,4 +45,12 @@ fun noErrorHandling(args: Array<String>) = try {
     "'${args[0]}' is not a valid number"
 } catch (e: Exception) {
     "The original message was ${e.message}"
+}
+
+fun readTextFile(filePath: String) = try {
+    File(filePath).readText()
+} catch (e: FileNotFoundException) {
+    "The file `$filePath` was not found"
+} catch (e: IOException) {
+    "An error occurred while reading the file: ${e.message}"
 }
